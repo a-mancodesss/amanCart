@@ -1,5 +1,7 @@
 import { Nav, NavLink } from "@/components/NavBar";
 
+export const dynamic = 'force-dynamic'
+
 export default function AdminLayout({
     children,
   }: Readonly<{
@@ -13,7 +15,7 @@ export default function AdminLayout({
           <NavLink href={'/admin/users'}>Customers</NavLink>
           <NavLink href={'/admin/orders'}>Sales</NavLink>
         </Nav>
-        <div>
+        <div className="p-4">
             {children}
         </div>
         </>

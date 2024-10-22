@@ -7,6 +7,7 @@ import {
 } from "@/components/ui/card"
 import db from "@/database/db"
 import { formatCurrency, formatNumber } from "@/lib/formatter"
+
 interface cardType{
   title:string
   description:string
@@ -70,7 +71,7 @@ const AdminPage = async() => {
     getProductData(),
   ])
   return (<>
-    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 p-4">
+    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 ">
     <CardComponent
       title="Total Sales"
       description={`${formatNumber(salesData.numberOfSales)} Orders`}

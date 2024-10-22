@@ -37,13 +37,6 @@ return{
   numberOfSales: data._count,
 }
 }
-// function wait() {
-//   return new Promise((resolve) => {
-//     setTimeout(resolve, 3000)
-//   })
-// }
-
-
 async function getUserData() {
   const [userCount,orderData]=await Promise.all([
     db.user.count(),
@@ -64,6 +57,7 @@ async function getProductData() {
 
   return { activeCount, inactiveCount }
 }
+
 const AdminPage = async() => {
   const [salesData, userData, productData] = await Promise.all([
     getSalesData(),
@@ -82,8 +76,13 @@ const AdminPage = async() => {
       description={`${formatCurrency(userData.avaerageValuePerUser)} Average Value`}
       content={formatNumber(userData.userCount)}
   />
-
+     <CardComponent
+        title="Active Products"
+        description={`${formatNumber(productData.inactiveCount)} Inactive`}
+        content={formatNumber(productData.activeCount)}
+      />
     </div>
+
   </>
   )
 }

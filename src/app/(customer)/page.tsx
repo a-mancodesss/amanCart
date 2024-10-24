@@ -1,32 +1,32 @@
 import { ProductCard, ProductCardSkeleton} from "@/components/ProductCards"
 import { Button } from "@/components/ui/button"
 import db from "@/database/db"
+import { cache } from "@/lib/cache"
 
 import { Product } from "@prisma/client"
 import { ArrowRight } from "lucide-react"
 import Link from "next/link"
 import { Suspense } from "react"
 
-const getMostPopularProducts =
-  () => {
-    return db.product.findMany({
-      where: { isAvailableForPurchase: true },
-      orderBy: { orders: { _count: "desc" } },
-      take: 6,
-    })
-  }
-  // ,["/", "getMostPopularProducts"],
-  // { revalidate: 60 * 60 * 24 }
+const getMostPopularProducts =cache(() => {
+  return db.product.findMany({
+    where: { isAvailableForPurchase: true },
+    orderBy: { orders: { _count: "desc" } },
+    take: 6,
+  })
+}
+,["/", "getMostPopularProducts"],
+{ revalidate: 60 * 60 * 24 })
 
 
-const getNewestProducts =() => {
+const getNewestProducts =cache(() => {
   return db.product.findMany({
     where: { isAvailableForPurchase: true },
     orderBy: { createdAt: "desc" },
     take: 6,
   })
 }
-// , ["/", "getNewestProducts"]
+, ["/", "getNewestProducts"])
 
 export default function HomePage() {
   return (
@@ -51,8 +51,8 @@ function ProductGridSection({
   title,
 }: ProductGridSectionProps) {
   return (
-    <div className="space-y-4">
-      <div className="flex gap-4">
+    <div className="space-y-4 ">
+      <div className="flex gap-4 justify-between">
         <h2 className="text-3xl font-bold">{title}</h2>
         <Button variant="outline" asChild>
           <Link href="/products" className="space-x-2">

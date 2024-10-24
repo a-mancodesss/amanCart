@@ -52,6 +52,8 @@ export const addProduct = async (prevState: unknown, formData: FormData) => {
       imagePath,
     },
   });
+  revalidatePath("/");
+  revalidatePath("/products");
   redirect("/admin/products");
 };
 export async function updateProduct(
@@ -110,6 +112,8 @@ export const toggleProductAvailability = async (
     where: { id },
     data: { isAvailableForPurchase },
   });
+  revalidatePath("/");
+  revalidatePath("/products");
 };
 export const deleteProduct = async (id: string) => {
   const product =await db.product.delete({

@@ -1,4 +1,4 @@
-import { ProductCard} from "@/components/ProductCards"
+import { ProductCard, ProductCardSkeleton} from "@/components/ProductCards"
 import { Button } from "@/components/ui/button"
 import db from "@/database/db"
 
@@ -39,6 +39,7 @@ export default function HomePage() {
     </main>
   )
 }
+// const wait = (ms: number) => new Promise(resolve => setTimeout(resolve, ms))
 
 type ProductGridSectionProps = {
   title: string
@@ -61,7 +62,7 @@ function ProductGridSection({
         </Button>
       </div>
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-        {/* <Suspense
+        <Suspense
           fallback={
             <>
               <ProductCardSkeleton />
@@ -69,9 +70,9 @@ function ProductGridSection({
               <ProductCardSkeleton />
             </>
           }
-        > */}
+        >
           <ProductSuspense productsFetcher={productsFetcher} />
-        {/* </Suspense> */}
+        </Suspense>
       </div>
     </div>
   )

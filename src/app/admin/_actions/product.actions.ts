@@ -127,3 +127,11 @@ export const deleteProduct = async (id: string) => {
   revalidatePath("/")
   revalidatePath("/products")
 };
+export async function userOrderExists(email: string, productId: string) {
+  return (
+    (await db.order.findFirst({
+      where: { user: { email }, productId },
+      select: { id: true },
+    })) != null
+  )
+}
